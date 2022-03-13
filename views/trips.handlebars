@@ -1,0 +1,140 @@
+<div class="container">
+    <div style="position:relative; left:5px; right:5px;">
+        <h1 style="text-align:center">Plan Trip</h1>
+        <form method="get">
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Origin and Destination</h3>
+            <div class="input-group">
+                <select class="form-control" name="source">
+                    <option>Choose origin</option>
+                    {{#each stations}}
+                    <option value={{ this.abbr }}>{{ this.name }}</option>
+                    {{/each}}
+                </select>
+                <select class="form-control" name="destination" onchange='this.form.submit();'>
+                    <option>Choose destination</option>
+                    {{#each stations}}
+                    <option value={{ this.abbr }}>{{ this.name }}</option>
+                    {{/each}}
+                </select>
+                <div class="pt-5">
+                    {{#if tripResponse}}
+                    <table style="width:100%">
+                        <tr style="color: hsla(290, 46%, 55%, 0.973)">
+                            <th>Origin</th>
+                            <th>Destination</th>
+                            <th>Origin Depart Time</th>
+                            <th>Origin Depart Date</th>
+                            <th>Dest Arrival Time</th>
+                            <th>Dest Arrival Date</th>
+                            <th>Clipper</th>
+                            <th>Trip time</th>
+                            <th>Cost</th>
+                            <th>Line and Train Head Station</th>
+                        </tr>
+                        <tr>
+                            {{#each tripResponse}}
+                            {{#.}}
+                        <tr>
+                            <td><span><small>{{ this.[@origin] }}</small></span></td>
+                            <td><span><small>{{ this.[@destination] }}</small></span></td>
+                            <td><span><small>{{ this.[@origTimeMin] }}</small></span></td>
+                            <td><span><small>{{ this.[@origTimeDate] }}</small></span></td>
+                            <td><span><small>{{ this.[@destTimeMin] }}</small></span></td>
+                            <td><span><small>{{ this.[@destTimeDate] }}</small></span></td>
+                            <td><span><small>{{ this.[@clipper] }}</small></span></td>
+                            <td><span><small>{{ this.[@tripTime] }}</small></span></td>
+                            <td><span><small>{{ this.[@fare] }}</small></span></td>
+                            {{#leg}}
+                            <td>
+                                <span><small>{{ this.[@line] }}</small></span>
+                                <span><small>{{ this.[@trainHeadStation] }}</small></span>
+                            </td>
+                            {{/leg}}
+                        </tr>
+                        {{/.}}
+                        {{/each}}
+                        </tr>
+                    </table>
+                    {{/if}}
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="position:relative; left:5px; right:5px;">
+        <h1 style="color: hsla(290, 46%, 55%, 0.973)">Train leaves in: </h1>
+
+        {{!-- <td><span><small>{{countdownToTrain.originTimeTrainHourJSON}}</small></span></td>
+        <td><span><small>{{countdownToTrain.originTimeTrainMinuteJSON}}</small></span></td>
+        <td><span><small>{{countdownToTrain.originTimeTrainSecondJSON}}</small></span></td>
+        <td><span><small>{{countdownToTrain.originTimeTrainAmPmJSON}}</small></span></td> --}}
+
+        <div id="getting-started"></div>
+        <script src="/javascript/jquery.countdown.js"></script>
+        <script type="text/javascript">
+            // console.log('{{countdownToTrain.originTimeTrainHourJSON}}');
+            // console.log('{{countdownToTrain.originTimeTrainMinuteJSON}}');
+            // console.log('{{countdownToTrain.originTimeTrainSecondJSON}}');
+            // console.log('{{countdownToTrain.originTimeTrainAmPmJSON}}');
+            // console.log('{{countdownToTrain.originTimeTrainDate}}');
+            var originDepartureTime = '{{countdownToTrain.originTimeTrainDate}}';
+            originDepartureTime = ['{{countdownToTrain.originTimeTrainHourJSON}}', '{{countdownToTrain.originTimeTrainMinuteJSON}}', '{{countdownToTrain.originTimeTrainSecondJSON}}'].join(':');
+            originDepartureTime += ' {{countdownToTrain.originTimeTrainAmPmJSON}}'
+
+            var originDepartureDate = '{{countdownToTrain.originTimeTrainDate}}';
+            // console.log('originDepartureDate');
+            // console.log(originDepartureDate);
+
+            // if PM time
+            if (originDepartureTime.indexOf('PM') > 0) {
+                originDepartureTime = (Number(originDepartureTime.substring(0, 2)) + 12) + originDepartureTime.substring(2, 5);
+            } else {
+                originDepartureTime = originDepartureTime.substring(0, 5);
+            }
+
+            originDepartureTime = originDepartureDate + " " + originDepartureTime;
+            // console.log('originDepartureTime');
+            // console.log(originDepartureTime);
+
+            let newOriginDepartureDate = new Date(originDepartureTime);
+            // console.log('newOriginDepartureDate');
+            // console.log(newOriginDepartureDate);
+
+            let currentDate = new Date();
+            // console.log('currentDate');
+            // console.log(currentDate);
+            
+            let timeDiff = Math.floor((newOriginDepartureDate - currentDate) / 60000);
+            // console.log('timeDiff');
+            // console.log(timeDiff);
+
+            // console.log('OVER HERE 5');
+            // console.log(originDepartureTime);
+
+            $('#getting-started').countdown(newOriginDepartureDate, function (event) {
+                $(this).html(event.strftime('%H:%M:%S'));
+            });
+        </script>
+    </div>
+    <div>
+        <h1 style="color: hsla(290, 46%, 55%, 0.973)">Trip Map</h1>
+        {{!-- {{#if sourceLatLng}}
+        {{#if destinationLatLng}} --}}
+        {{!-- <span><small>{{ countDownToTrain.valueJSON }}</small></span>
+        <span><small>{{ sourceLatLng.sourceLat }}</small></span>
+        <span><small>{{ sourceLatLng.sourceLng }}</small></span>
+        <span><small>{{ destinationLatLng.destinationLat }}</small></span>
+        <span><small>{{ destinationLatLng.destinationLng }}</small></span> --}}
+        <script>
+            var sourceLatLngsourceLat = {{ sourceLatLng.sourceLat }};
+            var sourceLatLngsourceLng = {{ sourceLatLng.sourceLng }};
+            var destinationLatLngdestinationLat = {{ destinationLatLng.destinationLat }};
+            var destinationLatLngdestinationLng = {{ destinationLatLng.destinationLng }};
+        </script>
+        <input type="button"
+            onclick="calcRoute(sourceLatLngsourceLat, sourceLatLngsourceLng, destinationLatLngdestinationLat, destinationLatLngdestinationLng)"
+            value="Display my trip">
+        {{!-- {{/if}}
+        {{/if}} --}}
+        <div id="map"></div>
+    </div>
+</div>

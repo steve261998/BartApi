@@ -1,0 +1,52 @@
+<meta http-equiv="refresh" content="30">
+<div class="container" style="position:relative; left:5px; right:5px;">
+    <div>
+        <h1 style="text-align:center">Station Details</h1>
+        <form method="get">
+            <div class="input-group">
+                <select class="form-control" name="stn" onchange='this.form.submit()'>
+                    <option>Choose a station</option>
+                    {{#each stations}}
+                    <option value={{ this.abbr }}>{{ this.name }}</option>
+                    {{/each}}
+                </select>
+            </div>
+        </form>
+    </div>
+    <div>
+        {{#if access}}
+        <aside>
+            <h1 style="color: hsla(290, 46%, 55%, 0.973)">{{ access.name }}, {{ access.abbr }}</h1>
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Entering details:</h3>
+            <p>{{{ access.entering.[#cdata-section] }}}</p>
+
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Exiting details:</h3>
+            <p>{{{ access.exiting.[#cdata-section] }}}</p>
+
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Parking details:</h3>
+            <p>{{{ access.parking.[#cdata-section] }}}</p>
+
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Fill Time details:</h3>
+            <p>{{{ access.fill_time.[#cdata-section] }}}</p>
+
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Car Share details:</h3>
+            <p>{{{ access.car_share.[#cdata-section] }}}</p>
+
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Locker details:</h3>
+            <p>{{{ access.lockers.[#cdata-section] }}}</p>
+
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Bike Station details:</h3>
+            <p>{{{ access.bike_station_text.[#cdata-section] }}}</p>
+
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Destination details:</h3>
+            <p>{{{ access.destinations.[#cdata-section] }}}</p>
+
+            <h3 style="color: hsla(290, 46%, 55%, 0.973)">Transit Info details:</h3>
+            <p>{{{ access.transit_info.[#cdata-section] }}}</p>
+
+            {{!-- <h3 style="color: #1FA2FF">Link details:</h3>
+            <p>{{ access.linkJSON }}</p> --}}
+        </aside>
+        {{/if}}
+    </div>
+</div>

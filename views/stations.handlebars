@@ -1,0 +1,14 @@
+<meta http-equiv="refresh" content="30">
+<div class="container" style="position:relative; left:5px; right:5px;">
+    <h1 style="text-align:center">Stations List</h1>
+    <div>
+        <ul>
+            {{#each stations}}
+            <li>
+                <span style="color: #1FA2FF"> {{ this.name }} </span> 
+                <span style="color: #E3000B"> {{ this.abbr }} </span>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>

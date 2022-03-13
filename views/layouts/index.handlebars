@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{{!-- Part #5: The Same-Origin Policy
+It is possible for my website to load and display data from the BART API becasue the browser is requesting data from
+bart.manpreetsokhi.live server, which is it's own host.
+It is not requesting directly from the BART API.
+However, my server, bart.manpreetsokhi.live, makes the request as an HTTP client by using the http and request libraries
+in NodeJS.
+Since I have added pre-flight headers in my rest api, I am able to make these calls to the BART API. --}}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SCU COEN 315 Web Architecture and Protocols Assignment 4">
+    <meta name="keywords" content="COEN 315, Steve Dcosta, SCU, Web Architecture and Protocols">
+    <meta name="author" content="Steve Dcosta">
+
+    <title>Steve's BART Assignment 4</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+    <script type="text/javascript" src="/javascript/main.js"></script>
+</head>
+
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a href="stations">Stations List</a>
+        <a href="station">Station</a>
+        <a href="trips">Trips</a>
+    </div>
+    <p style="position:relative; left:5px; right:5px;">Visit Count <a id="visitNum"></a></p>
+    {{{body}}}
+    <footer>
+        <div class="footer">Built by
+            <a href="https://sdcosta2coen315.com" target="_blank" style="text-decoration: none;">STEVE DCOSTA</a>
+        </div>
+    </footer>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVdoOK0BfEdBZLz0ys4rIZMq1g2_JrH5s&callback=initMap">
+        </script>
+</body>
+
+</html>
